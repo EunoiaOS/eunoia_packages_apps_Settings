@@ -44,6 +44,7 @@ import com.android.settings.accounts.ManagedProfileSettings;
 import com.android.settings.applications.AppDashboardFragment;
 import com.android.settings.applications.ProcessStatsSummary;
 import com.android.settings.applications.ProcessStatsUi;
+import com.android.settings.applications.RunningServices;
 import com.android.settings.applications.UsageAccessDetails;
 import com.android.settings.applications.appcompat.UserAspectRatioDetails;
 import com.android.settings.applications.appinfo.AlarmsAndRemindersDetails;
@@ -392,7 +393,8 @@ public class SettingsGateway {
             ResetNetwork.class.getName(),
             VibrationIntensitySettingsFragment.class.getName(),
             EunoiaSettingsFragment.class.getName(),
-            EunoiaVersionFragment.class.getName()
+            EunoiaVersionFragment.class.getName(),
+            RunningServices.class.getName()
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
@@ -441,5 +443,6 @@ public class SettingsGateway {
             Settings.NavigationModeSettingsActivity.class.getName(),
             Settings.EunoiaSettingsFragmentActivity.class.getName(),
             Settings.EunoiaVersionFragmentActivity.class.getName(),
+            Settings.DevRunningServicesActivity.class.getName(),
     };
 }

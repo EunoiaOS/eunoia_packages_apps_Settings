@@ -492,4 +492,5 @@ public class Settings extends SettingsActivity {
 
     public static class EunoiaSettingsFragmentActivity extends SettingsActivity {}
     public static class EunoiaVersionFragmentActivity extends SettingsActivity {}
+    public static class DevRunningServicesActivity extends SettingsActivity { /* empty */ }
 }
