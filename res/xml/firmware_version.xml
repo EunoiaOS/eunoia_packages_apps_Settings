@@ -30,13 +30,13 @@
         settings:searchable="false"
         settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionDetailPreferenceController"/>
 
-    <!-- Lineage version -->
+    <!-- Eunoia version -->
     <Preference
-        android:key="lineage_version"
+        android:key="eunoia_version"
         android:title="@*lineageos.platform:string/lineage_version"
         android:summary="@string/summary_placeholder"
         settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageVersionDetailPreferenceController"/>
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.EunoiaVersionDetailPreferenceController"/>
 
     <!-- Security patch -->
     <Preference
@@ -51,7 +51,7 @@
         android:title="@*lineageos.platform:string/lineage_vendor_security_patch"
         android:selectable="false"
         settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageVendorSecurityPatchLevelPreferenceController"/>
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.EunoiaVendorSecurityPatchLevelPreferenceController"/>
 
     <!-- Mainline module version -->
     <!--
@@ -88,7 +88,7 @@
         android:summary="@string/summary_placeholder"
         android:selectable="false"
         settings:enableCopying="true"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.LineageBuildDatePreferenceController"/>
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.EunoiaBuildDatePreferenceController"/>
 
     <!-- Build -->
     <Preference
