@@ -55,15 +55,21 @@ android_library {
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",
+        "Eunoia/src/**/*.java",
+        "Eunoia/src/**/*.kt",
     ],
     exclude_srcs: [
         "src/com/android/settings/biometrics/fingerprint2/lib/**/*.kt",
+    ],
+    aaptflags: [
+        "--extra-packages com.eunoiaos.settings"
     ],
     use_resource_processor: true,
     resource_dirs: [
         "res",
         "res-export", // for external usage
         "res-product",
+        "Eunoia/res",
     ],
     static_libs: [
         // External dependencies
@@ -132,6 +138,10 @@ android_library {
         "telephony-common",
         "ims-common",
     ],
+
+    optimize: {
+        proguard_flags_files: ["proguard-core.flags"],
+    },
 }
 
 platform_compat_config {

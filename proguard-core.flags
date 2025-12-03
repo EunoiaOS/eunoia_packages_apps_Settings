@@ -1,0 +1,2 @@
+# EunoiaSettings
+-keep class com.eunoiaos.settings.**

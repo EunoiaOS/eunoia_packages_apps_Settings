@@ -20,6 +20,15 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings">
 
+    <Preference
+        android:fragment="com.eunoiaos.settings.EunoiaSettingsFragment"
+        android:icon="@drawable/ic_settings_cogs"
+        android:key="top_level_eunoia"
+        android:order="-888"
+        android:title="@string/eunoia_title"
+        android:summary="@string/eunoia_summary"
+        settings:controller="com.eunoiaos.settings.TopLevelSettingsPreferenceController" />
+
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
         android:icon="@drawable/ic_settings_wireless"
