@@ -20,6 +20,16 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings">
 
+    <!-- EunoiaOS Version -->
+    <Preference
+        android:fragment="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionSettings"
+        android:key="eunoia_os_version"
+        android:order="-999"
+        android:summary="@string/summary_placeholder"
+        android:title="@*lineageos.platform:string/lineage_version"
+        settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionPreferenceController"/>
+
+    <!-- Eunoia -->
     <Preference
         android:fragment="com.eunoiaos.settings.EunoiaSettingsFragment"
         android:icon="@drawable/ic_settings_cogs"
