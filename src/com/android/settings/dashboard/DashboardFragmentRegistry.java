@@ -52,6 +52,7 @@ import com.android.settings.system.SystemDashboardFragment;
 import com.android.settingslib.drawer.CategoryKey;
 
 import com.eunoiaos.settings.EunoiaSettingsFragment;
+import com.eunoiaos.settings.EunoiaVersionFragment;
 
 import java.util.Map;
 
@@ -138,6 +139,8 @@ public class DashboardFragmentRegistry {
         PARENT_TO_CATEGORY_KEY_MAP.put(MoreSecurityPrivacyFragment.class.getName(),
                 CategoryKey.CATEGORY_MORE_SECURITY_PRIVACY_SETTINGS);
         PARENT_TO_CATEGORY_KEY_MAP.put(EunoiaSettingsFragment.class.getName(),
+                CategoryKey.CATEGORY_SYSTEM_DEVELOPMENT);
+        PARENT_TO_CATEGORY_KEY_MAP.put(EunoiaVersionFragment.class.getName(),
                 CategoryKey.CATEGORY_SYSTEM_DEVELOPMENT);
 
         CATEGORY_KEY_TO_PARENT_MAP = new ArrayMap<>(PARENT_TO_CATEGORY_KEY_MAP.size());

@@ -201,6 +201,7 @@ import com.android.settings.wifi.savedaccesspoints2.SavedAccessPointsWifiSetting
 import com.android.settings.wifi.tether.WifiTetherSettings;
 
 import com.eunoiaos.settings.EunoiaSettingsFragment;
+import com.eunoiaos.settings.EunoiaVersionFragment;
 
 public class SettingsGateway {
 
@@ -390,7 +391,8 @@ public class SettingsGateway {
             ScreenTimeoutSettings.class.getName(),
             ResetNetwork.class.getName(),
             VibrationIntensitySettingsFragment.class.getName(),
-            EunoiaSettingsFragment.class.getName()
+            EunoiaSettingsFragment.class.getName(),
+            EunoiaVersionFragment.class.getName()
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
@@ -438,5 +440,6 @@ public class SettingsGateway {
             Settings.MemtagPageActivity.class.getName(),
             Settings.NavigationModeSettingsActivity.class.getName(),
             Settings.EunoiaSettingsFragmentActivity.class.getName(),
+            Settings.EunoiaVersionFragmentActivity.class.getName(),
     };
 }

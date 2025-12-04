@@ -491,4 +491,5 @@ public class Settings extends SettingsActivity {
     public static class ResetMobileNetworkSettingsActivity extends SettingsActivity { /* empty */ }
 
     public static class EunoiaSettingsFragmentActivity extends SettingsActivity {}
+    public static class EunoiaVersionFragmentActivity extends SettingsActivity {}
 }
