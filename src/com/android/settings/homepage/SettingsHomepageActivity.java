@@ -26,15 +26,19 @@ import android.animation.LayoutTransition;
 import android.app.ActivityManager;
 import android.app.settings.SettingsEnums;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.ApplicationInfoFlags;
 import android.content.pm.UserInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.text.TextUtils;
@@ -45,7 +49,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.VisibleForTesting;
@@ -63,11 +70,11 @@ import androidx.window.embedding.SplitInfo;
 import androidx.window.embedding.SplitRule;
 import androidx.window.java.embedding.SplitControllerCallbackAdapter;
 
+import com.android.internal.util.UserIcons;
 import com.android.settings.R;
 import com.android.settings.Settings;
 import com.android.settings.SettingsActivity;
 import com.android.settings.SettingsApplication;
-import com.android.settings.accounts.AvatarViewMixin;
 import com.android.settings.activityembedding.ActivityEmbeddingRulesController;
 import com.android.settings.activityembedding.ActivityEmbeddingUtils;
 import com.android.settings.core.CategoryMixin;
@@ -77,6 +84,7 @@ import com.android.settings.overlay.FeatureFactory;
 import com.android.settings.safetycenter.SafetyCenterManagerWrapper;
 import com.android.settingslib.Utils;
 import com.android.settingslib.core.lifecycle.HideNonSystemOverlayMixin;
+import com.android.settingslib.drawable.CircleFramedDrawable;
 
 import com.google.android.setupcompat.util.WizardManagerHelper;
 
@@ -120,6 +128,14 @@ public class SettingsHomepageActivity extends FragmentActivity implements
     private SplitControllerCallbackAdapter mSplitControllerAdapter;
     private SplitInfoCallback mCallback;
     private boolean mAllowUpdateSuggestion = true;
+
+    private Context mContext;
+    private ImageView mUserImage;
+    private ImageView mUserVerified;
+    private UserManager mUserManager;
+    private TextView mUsername;
+    private TextView mUserBadge;
+    private Boolean isOfficial;
 
     /** A listener receiving homepage loaded events. */
     public interface HomepageLoadedListener {
@@ -222,7 +238,43 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         mIsTwoPane = ActivityEmbeddingUtils.isAlreadyEmbedded(this);
 
         updateAppBarMinHeight();
+
+        Context mContext = getApplicationContext();
+        mUserManager = mContext.getSystemService(UserManager.class);
+        mUserImage = findViewById(R.id.eunoia_user_avatar);
+        mUserVerified = findViewById(R.id.eunoia_icon_verified);
+        mUsername = (TextView) findViewById(R.id.eunoia_user_name);
+        mUserBadge = (TextView) findViewById(R.id.eunoia_user_badge);
+
+        if (mUserImage != null) {
+            mUserImage.setImageDrawable(getCircularUserIcon(mContext));
+            mUserImage.setVisibility(View.VISIBLE);
+            mUserImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$UserSettingsActivity"));
+                    startActivity(intent);
+                }
+            });
+        }
+
+        isOfficial = "VERIFIED".equals(SystemProperties.get("ro.eunoia.releasetype"));
+        mUserVerified.setImageResource(R.drawable.ic_user_badge);
+
+        if (isOfficial) {
+            mUserVerified.setVisibility(View.VISIBLE);
+        } else {
+            mUserVerified.setVisibility(View.GONE);
+        }
+
+        mUsername.setText(getEunoiaUserName(mContext));
+        mUserBadge.setText(getEunoiaUserBadge(isOfficial));
+
+        initEunoiaUpdater(isOfficial);
         initHomepageContainer();
+        initEunoiaCardClick();
+
         updateHomepageAppBar();
         updateHomepageBackground();
         mLoadedListeners = new ArraySet<>();
@@ -236,7 +288,6 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         final String highlightMenuKey = getHighlightMenuKey();
         // Only allow features on high ram devices.
         if (!getSystemService(ActivityManager.class).isLowRamDevice()) {
-            initAvatarView();
             final boolean scrollNeeded = mIsEmbeddingActivityEnabled
                     && !TextUtils.equals(getString(DEFAULT_HIGHLIGHT_MENU_KEY), highlightMenuKey);
             showSuggestionFragment(scrollNeeded);
@@ -378,20 +429,6 @@ public class SettingsHomepageActivity extends FragmentActivity implements
             FeatureFactory.getFeatureFactory().getSearchFeatureProvider()
                     .initSearchToolbar(this /* activity */, toolbarTwoPaneVersion,
                             SettingsEnums.SETTINGS_HOMEPAGE);
-        }
-    }
-
-    private void initAvatarView() {
-        final ImageView avatarView = findViewById(R.id.account_avatar);
-        final ImageView avatarTwoPaneView = findViewById(R.id.account_avatar_two_pane_version);
-        if (AvatarViewMixin.isAvatarSupported(this)) {
-            avatarView.setVisibility(View.VISIBLE);
-            getLifecycle().addObserver(new AvatarViewMixin(this, avatarView));
-
-            if (mIsEmbeddingActivityEnabled) {
-                avatarTwoPaneView.setVisibility(View.VISIBLE);
-                getLifecycle().addObserver(new AvatarViewMixin(this, avatarTwoPaneView));
-            }
         }
     }
 
@@ -792,6 +829,89 @@ public class SettingsHomepageActivity extends FragmentActivity implements
                 mIsSplitUpdatedUI = true;
                 mActivity.updateHomepageUI();
             }
+        }
+    }
+
+    private Drawable getCircularUserIcon(Context context) {
+        final UserManager mUserManager = getSystemService(UserManager.class);
+        Bitmap bitmapUserIcon = mUserManager.getUserIcon(UserHandle.myUserId());
+        if (bitmapUserIcon == null) {
+            // get default user icon.
+            final Drawable defaultUserIcon = UserIcons.getDefaultUserIcon(
+                    context.getResources(), UserHandle.myUserId(), false);
+            bitmapUserIcon = UserIcons.convertToBitmap(defaultUserIcon);
+        }
+        Drawable drawableUserIcon = new CircleFramedDrawable(bitmapUserIcon,
+                (int) context.getResources().getDimension(R.dimen.user_icon_size));
+        return drawableUserIcon;
+    }
+
+    private static String getEunoiaUserBadge(Boolean officialState) {
+        return officialState ? "Verified" : "Experimental";
+    }
+
+    private static String getEunoiaUserName(Context context) {
+        UserManager userManager =
+                (UserManager) context.getSystemService(Context.USER_SERVICE);
+
+        String name = userManager.getUserName();
+        return name != null ? name : "EonuiaOS";
+    }
+
+    private void initEunoiaCardClick() {
+        View eunoiaVersion = findViewById(R.id.eunoia_version);
+        if (eunoiaVersion != null) {
+            eunoiaVersion.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.Settings$EunoiaVersionFragmentActivity"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "Eunoia version not found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        View eunoiaSettings = findViewById(R.id.eunoia_settings);
+        if (eunoiaSettings != null) {
+            eunoiaSettings.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.Settings$EunoiaSettingsFragmentActivity"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "Eunoia Settings not found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        View eunoiaUpdate = findViewById(R.id.eunoia_update);
+        if (eunoiaUpdate != null) {
+            eunoiaUpdate.setOnClickListener(v -> {
+                try {
+                    Intent intent = new Intent("android.settings.SYSTEM_UPDATE_SETTINGS");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "System Update not found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void initEunoiaUpdater(boolean isOfficial) {
+        ImageButton eunoiaUpdater = findViewById(R.id.eunoia_update);
+        eunoiaUpdater.setVisibility(isOfficial ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mUserImage != null) {
+          mUserImage.setImageDrawable(getCircularUserIcon(getApplicationContext()));
         }
     }
 }

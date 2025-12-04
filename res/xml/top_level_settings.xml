@@ -20,38 +20,6 @@
     xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="top_level_settings">
 
-    <!-- EunoiaOS Version -->
-    <Preference
-        android:fragment="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionSettings"
-        android:key="eunoia_os_version"
-        android:order="-999"
-        android:summary="@string/summary_placeholder"
-        android:title="@*lineageos.platform:string/lineage_version"
-        settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionPreferenceController"/>
-
-    <!-- Eunoia -->
-    <Preference
-        android:fragment="com.eunoiaos.settings.EunoiaSettingsFragment"
-        android:icon="@drawable/ic_settings_cogs"
-        android:key="top_level_eunoia"
-        android:order="-888"
-        android:title="@string/eunoia_title"
-        android:summary="@string/eunoia_summary"
-        settings:controller="com.eunoiaos.settings.TopLevelSettingsPreferenceController" />
-
-    <!-- System Update -->
-    <Preference
-        android:icon="@drawable/ic_system_update"
-        android:key="system_update_settings"
-        android:order="-777"
-        android:title="@string/system_update_settings_list_item_title"
-        android:summary="@string/summary_placeholder"
-        settings:controller="com.android.settings.system.SystemUpdatePreferenceController"
-        settings:highlightableMenuKey="@string/keywords_system_update_settings">
-
-        <intent android:action="android.settings.SYSTEM_UPDATE_SETTINGS" />
-    </Preference>
-
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.network.NetworkDashboardFragment"
         android:icon="@drawable/ic_settings_wireless"
