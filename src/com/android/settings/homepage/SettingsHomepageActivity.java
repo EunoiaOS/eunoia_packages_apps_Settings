@@ -913,5 +913,7 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         if (mUserImage != null) {
           mUserImage.setImageDrawable(getCircularUserIcon(getApplicationContext()));
         }
+        mUsername = findViewById(R.id.eunoia_user_name);
+        mUsername.setText(getEunoiaUserName(getApplicationContext()));
     }
 }
