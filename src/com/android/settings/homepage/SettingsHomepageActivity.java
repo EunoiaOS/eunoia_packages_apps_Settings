@@ -758,6 +758,7 @@ public class SettingsHomepageActivity extends FragmentActivity implements
             findViewById(R.id.homepage_app_bar_two_pane_view).setVisibility(View.GONE);
             findViewById(R.id.suggestion_container_two_pane).setVisibility(View.GONE);
         }
+        findViewById(R.id.account_avatar).setVisibility(View.GONE);
     }
 
     private void updateHomepagePaddings() {
