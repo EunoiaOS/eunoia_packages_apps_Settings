@@ -201,8 +201,8 @@ import com.android.settings.wifi.p2p.WifiP2pSettings;
 import com.android.settings.wifi.savedaccesspoints2.SavedAccessPointsWifiSettings2;
 import com.android.settings.wifi.tether.WifiTetherSettings;
 
-import com.eunoiaos.settings.EunoiaSettingsFragment;
-import com.eunoiaos.settings.EunoiaVersionFragment;
+import com.eunoiaos.settings.EunoiaSettings;
+import com.eunoiaos.settings.eunoia.EunoiaVersion;
 
 public class SettingsGateway {
 
@@ -392,8 +392,8 @@ public class SettingsGateway {
             ScreenTimeoutSettings.class.getName(),
             ResetNetwork.class.getName(),
             VibrationIntensitySettingsFragment.class.getName(),
-            EunoiaSettingsFragment.class.getName(),
-            EunoiaVersionFragment.class.getName(),
+            EunoiaSettings.class.getName(),
+            EunoiaVersion.class.getName(),
             RunningServices.class.getName()
     };
 
@@ -441,8 +441,8 @@ public class SettingsGateway {
             UserBackupSettingsActivity.class.getName(),
             Settings.MemtagPageActivity.class.getName(),
             Settings.NavigationModeSettingsActivity.class.getName(),
-            Settings.EunoiaSettingsFragmentActivity.class.getName(),
-            Settings.EunoiaVersionFragmentActivity.class.getName(),
+            Settings.EunoiaSettingsActivity.class.getName(),
+            Settings.EunoiaVersionActivity.class.getName(),
             Settings.DevRunningServicesActivity.class.getName(),
     };
 }

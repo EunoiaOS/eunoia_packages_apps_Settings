@@ -5169,7 +5169,7 @@
         <!-- This is the longest AndroidManifest.xml ever. -->
 
         <!-- Begin EunoiaSettings -->
-        <activity android:name="Settings$EunoiaSettingsFragmentActivity"
+        <activity android:name="Settings$EunoiaSettingsActivity"
                   android:label="@string/eunoia_title"
                   android:icon="@drawable/ic_homepage_eunoia"
                   android:exported="true"
@@ -5180,7 +5180,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
-                       android:value="com.eunoiaos.settings.EunoiaSettingsFragment" />
+                       android:value="com.eunoiaos.settings.EunoiaSettings" />
             <meta-data android:name="com.android.settings.title"
                        android:resource="@string/eunoia_title" />
             <meta-data android:name="com.android.settings.summary"
@@ -5191,7 +5191,7 @@
         <!-- End EunoiaSettings -->
 
         <!-- Begin EunoiaVersion -->
-        <activity android:name="Settings$EunoiaVersionFragmentActivity"
+        <activity android:name="Settings$EunoiaVersionActivity"
                   android:label="@string/eunoia_title"
                   android:icon="@drawable/ic_homepage_eunoia"
                   android:exported="true"
@@ -5202,7 +5202,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
-                       android:value="com.eunoiaos.settings.EunoiaVersionFragment" />
+                       android:value="com.eunoiaos.settings.eunoia.EunoiaVersion" />
             <meta-data android:name="com.android.settings.title"
                        android:resource="@string/eunoia_title" />
             <meta-data android:name="com.android.settings.summary"

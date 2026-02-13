@@ -490,7 +490,7 @@ public class Settings extends SettingsActivity {
     /** Activity for the Reset mobile network settings. */
     public static class ResetMobileNetworkSettingsActivity extends SettingsActivity { /* empty */ }
 
-    public static class EunoiaSettingsFragmentActivity extends SettingsActivity {}
-    public static class EunoiaVersionFragmentActivity extends SettingsActivity {}
+    public static class EunoiaSettingsActivity extends SettingsActivity {}
+    public static class EunoiaVersionActivity extends SettingsActivity {}
     public static class DevRunningServicesActivity extends SettingsActivity { /* empty */ }
 }

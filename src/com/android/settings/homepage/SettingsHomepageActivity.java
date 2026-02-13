@@ -866,7 +866,7 @@ public class SettingsHomepageActivity extends FragmentActivity implements
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName(
                         "com.android.settings",
-                        "com.android.settings.Settings$EunoiaVersionFragmentActivity"));
+                        "com.android.settings.Settings$EunoiaVersionActivity"));
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
@@ -881,7 +881,7 @@ public class SettingsHomepageActivity extends FragmentActivity implements
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName(
                         "com.android.settings",
-                        "com.android.settings.Settings$EunoiaSettingsFragmentActivity"));
+                        "com.android.settings.Settings$EunoiaSettingsActivity"));
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
