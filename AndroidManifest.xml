@@ -5210,9 +5210,9 @@
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
                        android:value="true" />
         </activity>
-        <!-- End EunoiaVersion -->0
+        <!-- End EunoiaVersion -->
 
-         <!-- Provide direct entry into Dev settings - Running Services -->
+        <!-- Provide direct entry into Dev settings - Running Services -->
         <activity android:name="Settings$DevRunningServicesActivity"
                 android:label="@string/runningservices_settings_title"
                 android:theme="@style/Theme.SubSettingsBase"
