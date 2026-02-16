@@ -491,6 +491,11 @@ public class Settings extends SettingsActivity {
     public static class ResetMobileNetworkSettingsActivity extends SettingsActivity { /* empty */ }
 
     public static class EunoiaSettingsActivity extends SettingsActivity {}
-    public static class EunoiaVersionActivity extends SettingsActivity {}
+    public static class EunoiaVersionActivity extends SettingsActivity {
+        @Override
+        public boolean canExpandToolbar() {
+            return false;
+        }
+    }
     public static class DevRunningServicesActivity extends SettingsActivity { /* empty */ }
 }
