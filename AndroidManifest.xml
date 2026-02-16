@@ -5190,6 +5190,28 @@
         </activity>
         <!-- End EunoiaSettings -->
 
+        <!-- Begin EunoiaTeam -->
+        <activity android:name="Settings$EunoiaTeamActivity"
+                  android:label="@string/eunoia_title"
+                  android:icon="@drawable/ic_homepage_eunoia"
+                  android:exported="true"
+                  android:taskAffinity="com.android.settings"
+                  android:parentActivityName="Settings">
+            <intent-filter android:priority="1">
+                <action android:name="com.android.settings.action.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                       android:value="com.eunoiaos.settings.eunoia.EunoiaTeam" />
+            <meta-data android:name="com.android.settings.title"
+                       android:resource="@string/eunoia_title" />
+            <meta-data android:name="com.android.settings.summary"
+                       android:resource="@string/eunoia_summary"/>
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                       android:value="true" />
+        </activity>
+        <!-- End EunoiaTeam -->
+
         <!-- Begin EunoiaVersion -->
         <activity android:name="Settings$EunoiaVersionActivity"
                   android:label="@string/eunoia_title"

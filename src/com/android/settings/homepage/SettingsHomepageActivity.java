@@ -890,6 +890,21 @@ public class SettingsHomepageActivity extends FragmentActivity implements
             });
         }
 
+        View eunoiaTeam = findViewById(R.id.eunoia_team);
+        if (eunoiaTeam != null) {
+            eunoiaTeam.setOnClickListener(v -> {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.Settings$EunoiaTeamActivity"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "Eunoia Teams not found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
         View eunoiaUpdate = findViewById(R.id.eunoia_update);
         if (eunoiaUpdate != null) {
             eunoiaUpdate.setOnClickListener(v -> {

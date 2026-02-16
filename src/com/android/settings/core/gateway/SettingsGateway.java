@@ -202,6 +202,7 @@ import com.android.settings.wifi.savedaccesspoints2.SavedAccessPointsWifiSetting
 import com.android.settings.wifi.tether.WifiTetherSettings;
 
 import com.eunoiaos.settings.EunoiaSettings;
+import com.eunoiaos.settings.eunoia.EunoiaTeam;
 import com.eunoiaos.settings.eunoia.EunoiaVersion;
 
 public class SettingsGateway {
@@ -393,6 +394,7 @@ public class SettingsGateway {
             ResetNetwork.class.getName(),
             VibrationIntensitySettingsFragment.class.getName(),
             EunoiaSettings.class.getName(),
+            EunoiaTeam.class.getName(),
             EunoiaVersion.class.getName(),
             RunningServices.class.getName()
     };
@@ -442,6 +444,7 @@ public class SettingsGateway {
             Settings.MemtagPageActivity.class.getName(),
             Settings.NavigationModeSettingsActivity.class.getName(),
             Settings.EunoiaSettingsActivity.class.getName(),
+            Settings.EunoiaTeamActivity.class.getName(),
             Settings.EunoiaVersionActivity.class.getName(),
             Settings.DevRunningServicesActivity.class.getName(),
     };
