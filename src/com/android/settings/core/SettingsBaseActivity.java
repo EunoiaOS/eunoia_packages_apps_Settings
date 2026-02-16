@@ -125,7 +125,11 @@ public class SettingsBaseActivity extends FragmentActivity implements CategoryHa
                                                 LineBreakConfig.LINE_BREAK_WORD_STYLE_PHRASE)
                                         .build()));
             }
-            autoSetCollapsingToolbarLayoutScrolling();
+            if (canExpandToolbar()) {
+                autoSetCollapsingToolbarLayoutScrolling();
+            } else {
+                lockToolbarToCollapsed();
+            }
         } else {
             super.setContentView(R.layout.settings_base_layout);
         }
@@ -288,5 +292,41 @@ public class SettingsBaseActivity extends FragmentActivity implements CategoryHa
             return TransitionType.TRANSITION_NONE;
         }
         return intent.getIntExtra(EXTRA_PAGE_TRANSITION_TYPE, TransitionType.TRANSITION_NONE);
+    }
+
+    public boolean canExpandToolbar() {
+        return true;
+    }
+
+    private void lockToolbarToCollapsed() {
+        if (mAppBarLayout == null) return;
+
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+
+        if (behavior == null) {
+            behavior = new AppBarLayout.Behavior();
+        }
+
+        behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+            @Override
+            public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+                return false;
+            }
+        });
+
+        params.setBehavior(behavior);
+
+        mAppBarLayout.post(() -> {
+            mAppBarLayout.setExpanded(false, false);
+        });
+
+        mAppBarLayout.addOnOffsetChangedListener(
+                (appBarLayout, verticalOffset) -> {
+                    if (verticalOffset != -appBarLayout.getTotalScrollRange()) {
+                        appBarLayout.setExpanded(false, false);
+                    }
+                }
+        );
     }
 }
